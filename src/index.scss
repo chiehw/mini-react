@@ -1,0 +1,195 @@
+$main: #f8d2cc;
+$text: #81473a;
+$size: 0.25rem;
+
+// from: https://codepen.io/87penginnouta/pen/YzMqWNy
+$colors: (
+  "o": transparent,
+  "b1": #483b0c,
+  //dark_brown
+  "b1e": rgba(72, 59, 12, 0.8),
+  //eye
+  "b2": #63582f,
+  //dark_brown
+  "b2e": rgba(99, 88, 47, 0.8),
+  //eye
+  "b3": #6e6238,
+  //brown
+  "b4": #786b40,
+  //brown
+  "b4e": rgba(120, 107, 64, 0.8),
+  //eye
+  "b5": #a19273,
+  //light_brown
+  "r1": #81473a,
+  //dark_red
+  "r2": #945e51,
+  //dark_red
+  "r3": #a77569,
+  //red
+  "r3e": rgba(167, 117, 105, 0.8),
+  //eye
+  "r4": #c88375,
+  //red
+  "r5": #e79d8e,
+  //light_red
+  "r5e": rgba(231, 157, 142, 0.8),
+  //eye
+  "p1": #f8d2cc,
+  //background
+  "p2": #f6d8c7,
+  //pink
+  "p3": #fae5d3,
+  //light_pink
+  "p4": #ffece9,
+  //light_pink
+  "g1": #c3b16d,
+  //gold
+  "g2": #cbbc84,
+  //light_gold
+  "s": #d5e2ed,
+  //silver
+  "f": #fdf2df,
+  //face
+  "n": #e3b750,
+  //neck
+  "t": #948a6a //tail
+);
+
+$heart: (
+  (r4 r4 o r4 r4) (r4 r4 r4 r4 r4) (r4 r4 r4 r4 r4) (o r4 r4 r4 o) (o o r4 o o)
+);
+
+$horse: (
+  (o o o b1 b1 o o b1 b1 b1) (o o b1 p3 b1 o b1 p3 p3 b1) (o b1 p2 g2 b1 b1 b1 p2 p3 b1) (o b1 f f s s f f b1) (b1 f f p3 f b4 f r4 b1) (b1 r4 r4 r4 f f f b1) (b1 f s f r3 r4 r4 b1) (o b1 b1 r4 f g2 f s b1) (o o o b1 g1 f f p3 s b1 b1 b1 o b1) (o o o b1 f f f f f p3 p3 s b1 s b1) (o o b1 f f f f f f f f f f b1 p2 b1) (o b1 f f g2 f f g2 f f f f f b1 p3 b1) (b1 f f g1 f f f g1 f f g1 g2 f b1 s b1) (b1 b4 b4 g1 f f g1 b1 b1 g1 b4 g1 f f b1) (o b1 b1 b1 b4 b4 b1 o o b1 b1 b1 b4 b4 b1) (o o o o b1 b1 b1 o o o o o b1 b1)
+);
+
+$megane: (
+  (o) (o) (o) (o) (o o o o b1 o o o o o o b1) (o o o b1 o o o o o o o o b1) (o o b1 b1 b1 b1 o o o o b1 b1 b1 b1) (o b1 b4 b4 b4 b4 b1 o o b1 b4 b4 b3 b3 b1) (o b1 b4 f s s b4 b1 b1 b4 f s s b4 b1) (b1 b3 b4 s f s b4 b3 b3 b4 s f s b4 b3 b1) (o b1 b3 s s f b3 b1 b1 b3 s s f b3 b1) (o b1 b3 b3 b3 b3 b1 o o b1 b3 b3 b3 b3 b1) (o o b1 b1 b1 b1 o o o o b1 b1 b1 b1) (o) (o) (o)
+);
+
+$rose: (
+  (o o o o o o o o b1) (o o o o b1 b1 o b1 r5 b1 o b1 b1) (o o b1 b1 r5 r5 b1 r4 r4 r5 b1 r5 r4 b1) (o b1 r5 r4 r4 r4 r5 r5 r4 r4 r5 r4 r4 r4 b1) (o o b1 r5 r5 r4 r4 r4 r5 r5 r4 r4 r5 r5 b1) (o o b1 r5 r5 r5 r5 r4 r5 r5 r5 r5 r5 r5 b1) (o o o b1 r5 r5 r5 r5 r5 r4 r4 r5 r5 b1) (o o o b1 r4 r4 r5 r5 r5 r5 r4 r4 r4 b1) (o o o o b1 r4 r4 r4 r4 r5 r5 r4 b1) (o o o o o b1 r1 r4 r4 r4 r1 b1) (o o o o b1 g2 g1 r1 r1 r1 g1 g2 b1) (o o o b1 g2 g1 g1 g2 g2 g2 g1 g1 g2 b1) (o o o b1 g1 b1 b1 g1 g2 g1 b1 b1 g1 b1) (o o o o b1 o o b1 g2 b1 o o b1) (o o o o o o o b1 g2 b1) (o o o o o o o b1 b1 b1)
+);
+
+//origin_scale:82*94
+$art: (
+  (o o o o o b1 b1 b1 o o o o o o o g2 o g2 g2 o g2 o g2 o o o o o o o o b1 b1 b1) (o o o o b1 b2 b2 b2 b1 o o o o o o o o o o o o o o o o o o o o o b1 b2 b2 b2 b1) (o o o o b1 b4 b4 b4 b2 b1 o o o o o o o o o o o o o o o o o o o b1 b2 b4 b4 b4 b1) (o o o o b1 r1 b4 b4 b4 b4 b1 o o o o b1 b1 b1 b1 b1 o o o o o o o o b1 b4 b4 b4 b4 r1 b1) (o o o o b1 r2 r1 b4 b4 b4 b4 b1 o o o o o b1 b4 b4 b1 b1 o o o o o b1 b4 b4 b4 b4 r1 r2 b1) (o o o o b1 r3 r2 r1 b4 b4 b4 b4 b1 b1 b1 b1 b1 b3 b4 b4 b4 b3 b1 b1 b1 b1 b1 b4 b4 b4 b4 r1 r2 r3 b1) (o o o o b1 r3 r2 r2 r1 b4 b4 b4 b2 b2 b2 b2 b3 b4 b4 b4 b4 b4 b3 b2 b2 b2 b2 b4 b4 b4 r1 r2 r3 r3 b1) (o o o o b1 r3 r3 r2 r1 b4 b4 b3 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b3 b4 r1 r2 r2 r3 r3 b1) (o o o o b1 r3 r2 r2 r1 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 r1 r2 r2 r3 r3 b1) (o o o o b1 r2 r2 r1 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 r1 r2 r2 b1) (o o o b1 b1 r2 r1 b4 b4 b4 b4 b4 b4 b5 b4 b4 b5 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 r1 r2 b1) (o o b1 s s r1 b4 b4 b4 b4 b4 b4 b5 b5 b4 b5 b5 b3 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 r1 b1 b1 b1) (o b1 s b2 b2 b4 b4 b4 b4 b4 b4 b5 b5 b5 b4 b5 b5 b4 b4 b4 b4 b4 b4 b3 b4 b4 b4 b4 b4 b4 b4 b4 b3 s s s b1) (o b1 r5 b2 b4 b4 b4 b4 b4 b4 b4 b5 b5 b4 b4 b5 b4 b4 b4 b4 b4 b4 b3 b2 b3 b4 b4 b4 b4 b4 b4 b3 s r3 r5 r5 b1) (o o b1 b2 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b4 b2 b2 b2 b4 b4 b4 b4 b4 b4 b3 s r5 r5 r3 b1) (o o b1 b3 b4 b4 b4 b4 b4 b4 b4 b4 b3 b4 b4 b4 b4 b4 b4 b4 b4 b2 b2 b2 b2 b3 b4 b4 b4 b4 b4 b2 s r5 r3 r3 b1) (o b1 b1 b3 b4 b4 b4 b4 b4 b4 b4 b3 b4 b4 b4 b4 b4 b4 b4 b4 b4 b2 f f b2 b3 b4 b4 b4 b4 b4 b4 b2 b2 b2 b1 b1) (b1 o b1 b4 b4 b4 b4 b4 b4 b4 b4 b3 b4 b4 b4 b4 b4 b4 b4 b4 b2 f f f f b2 b4 b4 b4 b4 b4 b4 b4 b4 b2 b1 o b1) (o o b1 b4 b4 b4 b4 b4 b4 b4 b4 b2 b4 b4 b4 b4 b4 b4 b4 b2 f f f f f b2 b4 b4 b4 b4 b4 b4 b4 b4 b4 b1) (o o b1 b4 b4 b4 b4 b4 b4 b4 b2 b2 b2 b4 b4 b4 b4 b4 b2 f f f f f f f b2 b4 b4 b4 b4 b4 b4 b4 b4 b2 b1) (o b1 b2 b4 b4 b4 b4 b4 b4 b4 b2 f b2 b4 b4 b4 b4 b4 b2 f f f f f f f f b2 b4 b4 b4 b3 b4 b4 b4 b3 b1) (o b1 b3 b4 b4 b4 b4 b4 b4 b2 f f f b2 b4 b4 b4 b2 f f f f f f f f f b2 b4 b4 b4 b4 b3 b4 b4 b3 b1) (o b1 b3 b4 b3 b4 b4 b4 b2 f r5e r5e r5e f b2 b4 b4 b2 f f f r5e r5e r5e r5e f f f b2 b4 b4 b4 b2 b4 b4 b4 b1) (o b1 b4 b4 b3 b4 b4 b4 b2 r5e r3e r3e r3e r5e f b2 b2 f f f r5e r3e r3e r3e r3e r5e f f b2 b4 b4 b4 b2 b4 b4 b4 b1) (o b1 b4 b4 b3 b4 b4 b2 f r3e b1e b1e b1e r3e f b2 b2 f f f r3e b1e b1e b1e b1e r3e f f b2 b4 b4 b4 b3 b2 b2 b4 b1) (o b1 b2 b4 b2 b4 b4 b2 f f b2e b2e b2e f f b2 f f f f f b2e b2e b2e b2e f f f b2 b4 b4 b4 b2 b1 b1 b2 b1) (o b1 b2 b4 b2 b4 b4 b2 f f b4e b4e b4e f b2 f f f f f f b4e b4e b4e b4e f f f b2 b4 b4 b2 b1 o b1 b1) (o o b1 b4 b4 b2 b4 b4 b2 f b4e b4e b4e f f f f f f f f b4e b4e b4e b4e f f f b2 b4 b4 b2 b1 o b1 b1) (o o b1 b2 b2 b1 b2 b2 b2 p3 b2e p4 b2e f f f f f f f f b2e b2e p4 b2e p3 p3 b2 f b2 b2 b1 o o b1) (o o o b1 b1 o b1 p3 p3 p2 p2 b2e b2e f f f f f f f p3 p2 b2e b2e b2e p2 p3 b1 b1 b2 b2 b1 o b1) (o o o o b1 o o b1 b1 p2 p2 p2 p3 f f f f f f p3 p2 p2 p2 p2 p2 r1 b1 o o b1 b1) (o o o o o b1 o o o b1 b1 p2 p3 f f f f f f p3 p2 p2 p2 r1 r1 r4 r4 b1) (o o o o o o o o o o o b1 n n n n n n n n n n n r3 r3 r4 r4 b1) (o o o o o o o o o o o o b1 b4 b4 b4 g1 f g1 b4 b4 b4 r3 r3 r3 r4 b1) (o o o o o o o o o o o b1 s s s b4 b4 g1 b4 r4 s r4 r4 r3 b4 b4 b1) (o o o o o o o o o o b1 g1 g1 r4 r3 b4 b4 b4 r4 b4 r4 r4 r4 r4 r4 b4 b4 b1 b1) (o o o o o o o o o b1 g1 r4 r3 s r1 r4 b4 r4 b4 r4 r4 r4 r4 r4 s r4 r3 b4 b4 b1 b1) (o o o o o o o o o o b1 b3 b3 r1 r4 r3 r4 r3 r4 r4 r4 r4 r1 s r3 r4 r1 r3 b4 b2 b2 b1)
+);
+
+@function pixelart($matrix, $size) {
+  $shadow: "";
+  $rows: length($matrix);
+
+  @for $row from 1 through $rows {
+    $row-num: nth($matrix, $row);
+
+    @for $col from 1 through length($row-num) {
+      $dot: nth($row-num, $col);
+      $shadow: $shadow + ($size * $col)+" " + ($size * $row)+" " + map-get($colors, $dot);
+
+      @if not($col==length($row-num) and $row==$rows) {
+        $shadow: $shadow + ",";
+      }
+    }
+  }
+
+  @return unquote($shadow);
+}
+
+* {
+  font-family: "VT323", "DotGothic16", monospace, sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+.pix::after {
+  position: absolute;
+  content: "";
+  margin-top: -$size;
+  margin-left: -$size;
+  width: $size;
+  height: $size;
+}
+
+p {
+  text-align: center;
+  color: $main;
+  margin-top: 5rem;
+}
+
+.cat {
+  position: relative;
+  margin: 0 auto;
+  width: $size * length($art);
+  height: $size * length($art);
+  // border: 1px solid red;
+
+  &::after {
+    box-shadow: pixelart($art, $size);
+  }
+}
+
+.box {
+  position: relative;
+  margin: 0 auto;
+  width: 20rem;
+  // height: 5rem;
+  // border: $size solid $main;
+  // background-color:$main;
+  text-align: center;
+  line-height: 5rem;
+  color: $text;
+}
+
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 20rem;
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  // border: $size solid $main;
+  // background-color:$main;
+
+  .item {
+    width: 5rem;
+    height: 5rem;
+    background-color: $main;
+    border: $size solid $main;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: white;
+    }
+
+    .horse {
+      width: $size * length($horse);
+      height: $size * length($horse);
+
+      &::after {
+        box-shadow: pixelart($horse, $size);
+      }
+    }
+
+    .megane {
+      width: $size * length($megane);
+      height: $size * length($megane);
+
+      &::after {
+        box-shadow: pixelart($megane, $size);
+      }
+    }
+
+    .rose {
+      width: $size * length($rose);
+      height: $size * length($rose);
+
+      &::after {
+        box-shadow: pixelart($rose, $size);
+      }
+    }
+  }
+}
