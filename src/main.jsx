@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from './utils/react-dom.js'
 import './index.scss'
 
-function PixelStyle() {
+function PixelStyle({ level }) {
   return (<div className='pixel'>
-    <p>Lv.1</p>
+    <p>Lv.{level}</p>
     <div className="cat pix"></div>
     <div className="box">By chieh</div>
   </div>)
@@ -27,7 +27,7 @@ function Gift() {
 const App = () => {
   return (
     <div className='app'>
-      <PixelStyle />
+      <PixelStyle level={1} />
       <Gift />
     </div>
   );

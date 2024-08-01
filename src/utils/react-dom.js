@@ -1,20 +1,19 @@
+import { createRoot } from "./fiber";
+
 /**
  * 将 Virtual DOM 转换为 DOM
  * @param {*} element: Virtual DOM
  * @param {Document} container: 根据 ID 获取的实际 DOM。
  */
 function render(element, container) {
-  console.log('==Virtual DOM==', element);
-  const dom = renderDom(element);
-  // 挂载新的 DOM 到真实 DOM 上
-  container.appendChild(dom);
+  createRoot(element, container)
 }
 
 /**
  * VDOM 是一个树形结构，递归遍历 VDOM，将 VDOM 渲染为真实 DOM
  * @param {*} element：element 可能是基础的数据类型、Object
  */
-function renderDom(element) {
+export function renderDom(element) {
   let dom = null;
 
   // element 可能为 null、undefined、0
@@ -30,16 +29,6 @@ function renderDom(element) {
     return document.createTextNode(element);
   }
 
-  // children 可能为数组或对象
-  if (Array.isArray(element)) {
-    dom = document.createDocumentFragment();
-    for (let item of element) {
-      const subDom = renderDom(item);
-      dom.appendChild(subDom);
-    }
-    return dom;
-  }
-
   const {
     type,
     props: { children, ...attributes }
@@ -48,19 +37,10 @@ function renderDom(element) {
   if (typeof type === 'string') {
     // 普通的标签，如 h1、h2
     dom = document.createElement(type);
-  } else if (typeof type === 'function') {
-    // 函数组件
-    const { props, type: Fn } = element;
-    const vdom = Fn(props);
-    dom = renderDom(vdom);
+  } if (typeof type === 'function') {
+    dom = document.createElement('div');  // DocumentFragment 为空时，不能挂载到父节点。
   }
 
-  if (children) {
-    const childrenDom = renderDom(children);
-    if (childrenDom) {
-      dom.appendChild(childrenDom);
-    }
-  }
   updateAttributes(dom, attributes);
   return dom;
 }
