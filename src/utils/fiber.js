@@ -1,4 +1,5 @@
 import { renderDom } from "./react-dom";
+import { commitRoot } from "./commit";
 
 
 let nextUnitOfWork = null;  // 当前的工作节点
@@ -6,7 +7,7 @@ let currentRoot = null; // 显示中的 Fiber 树
 let workInProgressRoot = null; // 渲染中的 Fiber 树
 
 export function createRoot(element, container) {
-  currentRoot = {
+  workInProgressRoot = {
     stateNode: container, // stateNode 用于存储 DOM 节点。
     return: null, // 上一个节点
     element: {  // element 用于存储 VDOM 的节点。
@@ -16,7 +17,7 @@ export function createRoot(element, container) {
     },
   }
   // 设置工作节点
-  nextUnitOfWork = currentRoot;
+  nextUnitOfWork = workInProgressRoot;
 }
 
 function performUnitOfWork(workInProgress) {
@@ -24,15 +25,6 @@ function performUnitOfWork(workInProgress) {
   if (!workInProgress.stateNode) {
     // 如果当前节点没有 DOM 树
     workInProgress.stateNode = renderDom(workInProgress.element)
-  }
-  if (workInProgress.stateNode && workInProgress.return) {
-    // 如果已经生成了 DOM 树，并且有父节点，就挂载到父节点上（有时候父节点没有 DOM 树就继续往上寻找）
-    let parentFiber = workInProgress.return;
-    while (!parentFiber.stateNode) {
-      parentFiber = parentFiber.return;
-    }
-
-    parentFiber.stateNode.appendChild(workInProgress.stateNode);
   }
 
   /** 构造 Fiber 树 */
@@ -97,13 +89,17 @@ function workLoop(deadline) {
   let shouldYield = false;
   while (nextUnitOfWork && !shouldYield) {
     performUnitOfWork(nextUnitOfWork);
+    // 没有工作节点并且渲染中有树，代表渲染完成
+    if (!nextUnitOfWork && workInProgressRoot) {
+      commitRoot(workInProgressRoot);
+      // Fiber 树利用了双缓冲机制
+      currentRoot = workInProgressRoot;
+      workInProgressRoot = null;
+    }
     shouldYield = deadline.timeRemaining() < 1;
   }
   // 重新设置回调
-  // requestIdleCallback(workLoop);
+  requestIdleCallback(workLoop);
 }
 
-// requestIdleCallback(workLoop);
-setInterval(() => {
-  workLoop({ timeRemaining: () => 0 })
-}, 120)
+requestIdleCallback(workLoop);
