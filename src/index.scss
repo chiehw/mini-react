@@ -123,6 +123,7 @@ p {
   width: $size * length($art);
   height: $size * length($art);
   // border: 1px solid red;
+  cursor: pointer;
 
   &::after {
     box-shadow: pixelart($art, $size);

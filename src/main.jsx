@@ -1,15 +1,25 @@
 import ReactDOM from './utils/react-dom.js'
 import './index.scss'
 import { particles } from './utils/animation.js'
+import { useState } from './utils/react.js'
 
-function PixelStyle({ level, levelId }) {
+function PixelStyle() {
+  const [level, setLevel] = useState(1)
+
+  const handleClick = () => {
+    setLevel((level => level + 1))
+    const emitter = document.getElementById('emitter');
+    if (emitter) {
+      particles(emitter, 100, 0, 0, -180, 0);
+    }
+  }
+
   return (<div className='pixel'>
-
     <div className='level'>
       <p >Lv.{level}</p>
-      <div className='emitter' id={levelId}></div>
+      <div className='emitter' id="emitter" ></div>
     </div>
-    <div className="cat pix"></div>
+    <div className="cat pix" onClick={handleClick} ></div>
     <div className="box">By chieh</div>
   </div>)
 }
@@ -28,23 +38,13 @@ function Gift() {
   </div>)
 }
 
-const App = (level, levelId) => {
+const App = () => {
   return (
     <div className='app'>
-      <PixelStyle level={level} levelId={levelId} />
+      <PixelStyle />
       <Gift />
     </div>
   );
 }
 
-let level = 1;
-ReactDOM.render(App(level++, 'None'), document.getElementById('root'))
-setInterval(() => {
-  const emitter = document.getElementById('emitter');
-  if (emitter) {
-    particles(emitter, 100, 0, 0, -180, 0);
-  }
-
-  ReactDOM.render(App(level++, 'emitter'), document.getElementById('root'))
-}, 3000)
-
+ReactDOM.render(App(), document.getElementById('root'))

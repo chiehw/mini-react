@@ -8,12 +8,33 @@ let workInProgressRoot = null; // 渲染中的 Fiber 树
 
 let deletions = []
 
+let currentFunctionFiber = null;  // 当前的函数组件的 Fiber 节点
+let hookIndex = 0;  // 函数组件中 Hook 的位置
+
 export function deleteFiber(fiberNode) {
   deletions.push(fiberNode)
 }
 
 export function getDeletions() {
   return deletions;
+}
+
+export function getCurrentFunctionFiber() {
+  return currentFunctionFiber;
+}
+
+export function getHookIndex() {
+  return hookIndex;
+}
+
+export function commitRender() {  
+  // 重新设置工作树、当前工作单元。
+  workInProgressRoot = {
+    stateNode: currentRoot.stateNode,
+    element: currentRoot.element,
+    alternate: currentRoot
+  };
+  nextUnitOfWork = workInProgressRoot;
 }
 
 export function createRoot(element, container) {
@@ -94,8 +115,20 @@ function reconcileChildren(workInProgress, elements) {
   }
 }
 
+function updateFunctionComponent(fiberNode) {
+  // 记录当前的函数组件、hook 的下标
+  currentFunctionFiber = fiberNode;
+  currentFunctionFiber.hooks = [];
+  hookIndex = 0;
+
+  const { props, type: Fn } = currentFunctionFiber.element;
+  const vdom = Fn(props);
+
+  reconcileChildren(fiberNode, [vdom])
+}
+
 /**
- * 
+ * 构造 Fiber 树，以及设置下一个工作节点。
  * @param {*} workInProgress ：渲染中的子树
  * @returns 
  */
@@ -112,9 +145,7 @@ function performUnitOfWork(workInProgress) {
 
   if (typeof type === 'function') {
     // 函数组件
-    const { props, type: Fn } = workInProgress.element;
-    const vdom = Fn(props);
-    children = [vdom]
+    updateFunctionComponent(workInProgress)
   }
 
   if (children || children === 0) {
