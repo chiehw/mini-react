@@ -193,3 +193,28 @@ p {
     }
   }
 }
+
+.level {
+  position: relative;
+}
+
+// from: https://codepen.io/aaroniker/pen/bGVGNrV
+.emitter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+
+  div {
+    width: 4px;
+    height: 4px;
+    margin: -2px 0 0 -2px;
+    border-radius: 1px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-style: preserve-3d;
+    background: var(--confetti-all, var(--b, none));
+  }
+}

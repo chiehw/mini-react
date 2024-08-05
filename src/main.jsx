@@ -1,10 +1,14 @@
-import React from 'react'
 import ReactDOM from './utils/react-dom.js'
 import './index.scss'
+import { particles } from './utils/animation.js'
 
-function PixelStyle({ level }) {
+function PixelStyle({ level, levelId }) {
   return (<div className='pixel'>
-    <p>Lv.{level}</p>
+
+    <div className='level'>
+      <p >Lv.{level}</p>
+      <div className='emitter' id={levelId}></div>
+    </div>
     <div className="cat pix"></div>
     <div className="box">By chieh</div>
   </div>)
@@ -24,13 +28,23 @@ function Gift() {
   </div>)
 }
 
-const App = () => {
+const App = (level, levelId) => {
   return (
     <div className='app'>
-      <PixelStyle level={1} />
+      <PixelStyle level={level} levelId={levelId} />
       <Gift />
     </div>
   );
 }
 
-ReactDOM.render(App(), document.getElementById('root'))
+let level = 1;
+ReactDOM.render(App(level++, 'None'), document.getElementById('root'))
+setInterval(() => {
+  const emitter = document.getElementById('emitter');
+  if (emitter) {
+    particles(emitter, 100, 0, 0, -180, 0);
+  }
+
+  ReactDOM.render(App(level++, 'emitter'), document.getElementById('root'))
+}, 3000)
+

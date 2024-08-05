@@ -49,8 +49,32 @@ export function renderDom(element) {
  * 
  * @param {Document} dom : DOM 节点
  * @param {Object} attributes : DOM 节点参数
+ * @param {Object} oldAttributes: DOM 旧的参数
  */
-function updateAttributes(dom, attributes) {
+export function updateAttributes(dom, attributes, oldAttributes) {
+  if (oldAttributes) {
+    Object.keys(oldAttributes).forEach(key => {
+      if (key.startsWith('on')) {
+        // 移除旧事件
+        const eventName = key.slice(2).toLowerCase()
+        dom.removeEventListener(eventName, attributes[key]);
+      } else if (key === 'className') {
+        // 移除 className
+        const classes = attributes[key].split(' ');
+        classes.forEach((classKey) => {
+          dom.classList.remove(classKey);
+        });
+      } else if (key === 'style') {
+        const styleObj = attributes[key];
+        Object.keys(styleObj).forEach(styleName => {
+          dom.style[styleName] = 'initial';
+        });
+      } else {
+        dom[key] = ''
+      }
+    });
+  }
+
   Object.keys(attributes).forEach(key => {
     if (key.startsWith('on')) {
       // 处理事件
