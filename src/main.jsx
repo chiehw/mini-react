@@ -1,7 +1,7 @@
-import ReactDOM from './utils/react-dom.js'
+import ReactDOM from './mini-react/react-dom.js'
 import './index.scss'
 import { particles } from './utils/animation.js'
-import { useState } from './utils/react.js'
+import { useState } from './mini-react/react.js'
 
 function PixelStyle() {
   const [level, setLevel] = useState(1)
