@@ -1,5 +1,40 @@
-import { renderDom } from "./react-dom";
-import { commitRoot } from "./commit";
+export let hostConfig = {}
+
+/**
+ * VDOM 是一个树形结构，递归遍历 VDOM，将 VDOM 渲染为真实 DOM
+ * @param {*} element：element 可能是基础的数据类型、Object
+ */
+export function renderToHost(element) {
+  let dom = null;
+
+  // element 可能为 null、undefined、0
+  if (!element && element !== 0) {
+    return null;
+  }
+
+  // 处理基础的元素
+  if (typeof element === 'string') {
+    return hostConfig.createTextInstance(element);
+  }
+  if (typeof element === 'number') {
+    return hostConfig.createTextInstance(element);
+  }
+
+  const {
+    type,
+    props: { children, ...attributes }
+  } = element;
+
+  if (typeof type === 'string') {
+    // 普通的标签，如 h1、h2
+    dom = hostConfig.createInstance(type, attributes);
+  } if (typeof type === 'function') {
+    dom = hostConfig.createInstance('div', attributes);  // DocumentFragment 为空时，不能挂载到父节点。
+  }
+
+  hostConfig.commitUpdate(dom, {}, {}, {}, attributes);
+  return dom;
+}
 
 
 let nextUnitOfWork = null;  // 当前的工作节点
@@ -27,12 +62,12 @@ export function getHookIndex() {
   return hookIndex;
 }
 
-export function commitRender() {  
+export function commitRender() {    
   // 重新设置工作树、当前工作单元。
   workInProgressRoot = {
-    stateNode: currentRoot.stateNode,
-    element: currentRoot.element,
-    alternate: currentRoot
+    stateNode: hostConfig.getChildHostContext().stateNode,
+    element: hostConfig.getChildHostContext().element,
+    alternate: hostConfig.getChildHostContext()
   };
   nextUnitOfWork = workInProgressRoot;
 }
@@ -127,6 +162,55 @@ function updateFunctionComponent(fiberNode) {
   reconcileChildren(fiberNode, [vdom])
 }
 
+export function commitRoot(rootFiber) {
+  const deletions = getDeletions();
+  deletions.forEach(commitWork);
+
+  // rootFiber 的子节点是 VDOM，所以应该传 child。
+  commitWork(rootFiber.child);
+}
+
+function commitWork(fiberNode) {
+  if (!fiberNode) {
+    return;
+  }
+  // 添加到父节点
+  let parantDom = fiberNode.return.stateNode;
+
+  if (fiberNode.flag === 'Deletion') {
+    if (typeof fiberNode.element?.type !== 'function') {
+      // 记得将 delection 置空
+      if (parantDom.contains(fiberNode.stateNode)) {
+        parantDom.removeChild(fiberNode.stateNode);
+      }
+    }
+    return;
+  }
+
+  if (fiberNode.flag === 'Placement') {
+    const targetPositionDom = parantDom.childNodes[fiberNode.index];
+    if (targetPositionDom) {
+      // 找到插入位置
+      parantDom.insertBefore(fiberNode.stateNode, targetPositionDom);
+    } else {
+      // 放在最后面
+      parantDom.appendChild(fiberNode.stateNode);
+    }
+  } else if (fiberNode.flag === 'Update') {
+    const { children, ...newAttributes } = fiberNode.element.props;
+    const oldAttributes = Object.assign({}, fiberNode.alternate.element.props);
+    delete oldAttributes.children;
+    /* 大部分组件会被标记为更新，但是属性也不一定能会发生变化，这里可以优化。 */
+    hostConfig.commitUpdate(fiberNode.stateNode, {}, {}, {}, newAttributes);
+  }
+
+  // 先挂载子节点
+  commitWork(fiberNode.child);
+  // 再挂载兄弟节点
+  commitWork(fiberNode.sibling)
+}
+
+
 /**
  * 构造 Fiber 树，以及设置下一个工作节点。
  * @param {*} workInProgress ：渲染中的子树
@@ -136,7 +220,7 @@ function performUnitOfWork(workInProgress) {
   /** 构建 DOM 树 */
   if (!workInProgress.stateNode) {
     // 如果当前节点没有 DOM 树
-    workInProgress.stateNode = renderDom(workInProgress.element)
+    workInProgress.stateNode = renderToHost(workInProgress.element)
   }
 
   /** 构造 Fiber 树 */

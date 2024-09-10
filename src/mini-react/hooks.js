@@ -1,4 +1,4 @@
-import { getCurrentFunctionFiber, getHookIndex, commitRender } from "./fiber";
+import { getCurrentFunctionFiber, getHookIndex, commitRender } from "./reconciler";
 
 export function useState(initial) {
   const currentFunctionFiber = getCurrentFunctionFiber();
@@ -29,6 +29,6 @@ export function useState(initial) {
   }  
 
   // 将 Hook 保存到 Fiber 中
-  currentFunctionFiber.hooks.push(hook);
+  // currentFunctionFiber?.hooks.push(hook);
   return [hook.state, setState]
 }
